@@ -57,6 +57,16 @@ def createAnsibleHostsFile():
     with open("hosts", "w") as f:
         f.write(t.render(hosts=container_li))
     print ("hosts file for Ansible has been generated!")
+
+def cleanup():
+    killHostContainers()
+    print ("host and ansible containers removed from memory")
+    try:
+        network= client.networks.list(names=["ansible.test"])
+        network[0].remove()
+        print ("network removed!")
+    except:
+        print ("network does not exists, or cleaned up already!")
 #test codes
 killHostContainers()
 setNetwork()
