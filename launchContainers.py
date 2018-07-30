@@ -16,12 +16,12 @@ def killHostContainers():
 def launchHosts(nhosts):
     for i in range(1, nhosts+1):
         hostname= "host"+str(i)
-        client.containers.run(image="sudeepgupta90/ubuntuhost:v1", detach=True, hostname= hostname, name=hostname, network="ansible.test")
+        client.containers.run(image="sudeepgupta90/ubuntuhost", detach=True, hostname= hostname, name=hostname, network="ansible.test")
     print (str(nhosts) + " ubuntu host containers have been launched")
 
 #launch ansible host
 def launchAnsibleHost(mountDirectory):
-    client.containers.run(image="sudeepgupta90/dockeransible:v1", detach=True, tty=True,hostname="ansiblehost", name="ansiblehost", network="ansible.test", volumes={mountDirectory:{"bind":"/mnt"}} )
+    client.containers.run(image="sudeepgupta90/dockeransible", detach=True, tty=True,hostname="ansiblehost", name="ansiblehost", network="ansible.test", volumes={mountDirectory:{"bind":"/mnt"}} )
     print ("ansible host is launched...")
 
 #creates ansible hosts file in the code directory itself
@@ -41,6 +41,9 @@ def createAnsibleHostsFile():
 
 #factory function which launches all the hosts
 def containerFactory(hosts, mountDirectory):
+    print ("connecting to docker hub for latest image...")
+    for image in ["sudeepgupta90/dockeransible", "sudeepgupta90/ubuntuhost"]:
+        client.images.pull(image)
     #launch both containers
     print ("launching host containers...")
     launchHosts(hosts)

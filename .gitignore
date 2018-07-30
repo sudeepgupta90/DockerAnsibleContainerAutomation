@@ -1,2 +1,5 @@
 venv/
 setup.sh
+ansible/
+__pycache__/
+hosts
