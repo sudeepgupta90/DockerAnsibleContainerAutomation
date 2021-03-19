@@ -3,7 +3,7 @@ chardet==3.0.4
 docker==3.5.1
 docker-pycreds==0.3.0
 idna==2.7
-Jinja2==2.10
+Jinja2==2.11.3
 MarkupSafe==1.0
 pkg-resources==0.0.0
 requests==2.20.0
